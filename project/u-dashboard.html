@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEABilling - View Bill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #0056b3;
+            color: white;
+            padding: 15px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul li a.active {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+            background-color: #f4f4f4;
+            min-height: 80vh;
+        }
+
+        .section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h1 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        thead th {
+            background-color: #0056b3;
+            color: white;
+            padding: 10px;
+        }
+
+        tbody td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .status.paid {
+            color: white;
+            background-color: green;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .status.unpaid {
+            color: white;
+            background-color: red;
+            padding: 5px 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #0056b3;
+            color: white;
+            padding: 20px 0;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0 20px;
+        }
+
+        .footer-content div {
+            flex: 1;
+        }
+
+        .footer-logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .footer-links ul,
+        .footer-services ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links ul li,
+        .footer-services ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-contact p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">NEABilling</div>
+        <nav>
+            <ul>
+                <li><a href="#" id="homeLink">Home</a></li>
+                <li><a href="#" id="profileLink">Profile</a></li>
+                <li><a href="#" id="viewBillLink" class="active">View Bill</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="#" id="logoutLink">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="section" id="homeSection">
+            <h1>Welcome to NEABilling</h1>
+            <p>Manage your electricity bills with ease and convenience.</p>
+        </section>
+        <section class="section" id="profileSection">
+            <h1>Profile Details</h1>
+            <p>Name: <span id="profileName">Abina Shrestha</span></p>
+            <p>Email: <span id="profileEmail">abina@example.com</span></p>
+            <p>Address: <span id="profileAddress">Darbarmarg, Kathmandu</span></p>
+        </section>
+        <section class="section active" id="viewBillSection">
+            <h1>Your Bills</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Invoice</th>
+                        <th>Name</th>
+                        <th>Due Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="billsTable">
+                    <!-- Bills will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">NEABilling</div>
+            <div class="footer-links">
+                <h3>Useful Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Features</a></li>
+                </ul>
+            </div>
+            <div class="footer-services">
+                <h3>Our Services</h3>
+                <ul>
+                    <li>Online Bill Payment</li>
+                    <li>24/7 Customer Support</li>
+                    <li>Automated Billing</li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <p>Central Office,<br>
+                Darbarmarg, Kathmandu</p>
+                <p>Phone: +977-1-4523450</p>
+                <p>Email: info@neab.org.np</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const profileData = {
+                name: "Abina Shrestha",
+                email: "abina@example.com",
+                address: "Darbarmarg, Kathmandu"
+            };
+
+            const billsData = [
+                { invoice: "A123456789234", name: "Abina Shrestha", dueDate: "August 13, 2018", amount: "Rs. 2000", status: "paid" },
+                { invoice: "B123456789234", name: "Abina Shrestha", dueDate: "July 13, 2018", amount: "Rs. 600", status: "paid" },
+                { invoice: "C123456789234", name: "Abina Shrestha", dueDate: "June 13, 2018", amount: "Rs. 600", status: "paid" },
+                { invoice: "D123456789234", name: "Abina Shrestha", dueDate: "May 13, 2018", amount: "Rs. 600", status: "paid" }
+            ];
+
+            // Populate Profile Details
+            document.getElementById('profileName').textContent = profileData.name;
+            document.getElementById('profileEmail').textContent = profileData.email;
+            document.getElementById('profileAddress').textContent = profileData.address;
+
+            // Populate Bills Table
+            const billsTable = document.getElementById('billsTable');
+            billsData.forEach(bill => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${bill.invoice}</td>
+                    <td>${bill.name}</td>
+                    <td>${bill.dueDate}</td>
+                    <td>${bill.amount}</td>
+                    <td class="status ${bill.status}">${bill.status.charAt(0).toUpperCase() + bill.status.slice(1)}</td>
+                `;
+                billsTable.appendChild(row);
+            });
+
+            // Navigation Links
+            document.getElementById('homeLink').addEventListener('click', function() {
+                showSection('homeSection');
+            });
+            document.getElementById('profileLink').addEventListener('click', function() {
+                showSection('profileSection');
+            });
+            document.getElementById('viewBillLink').addEventListener('click', function() {
+                showSection('viewBillSection');
+            });
+            document.getElementById('logoutLink').addEventListener('click', function() {
+                alert('You have been logged out.');
+                window.location.reload();
+            });
+
+            function showSection(sectionId) {
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(sectionId).classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
